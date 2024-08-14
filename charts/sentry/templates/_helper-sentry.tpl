@@ -533,27 +533,27 @@ sentry.conf.py: |-
   SENTRY_OPTIONS['filestore.options'] = {
       'access_key': os.getenv("S3_ACCESS_KEY_ID", {{ .Values.filestore.s3.accessKey | default "" | quote }}),
       'secret_key': os.getenv("S3_SECRET_ACCESS_KEY", {{ .Values.filestore.s3.secretKey | default "" | quote }}),
-      {{- if .Values.filestore.s3.bucketName }}
-      'bucket_name': {{ .Values.filestore.s3.bucketName | quote }},
+      {{- if or (.Values.filestore.s3.bucketName) (.Values.filestore.s3.bucketNameRef) }}
+      'bucket_name': os.getenv("S3_BUCKET_NAME", {{ .Values.filestore.s3.bucketName | default "" | quote }}),
       {{- end }}
-      {{- if .Values.filestore.s3.endpointUrl }}
-      'endpoint_url': {{ .Values.filestore.s3.endpointUrl | quote }},
+      {{- if or (.Values.filestore.s3.endpointUrl) (.Values.filestore.s3.endpointUrlRef) }}
+      'endpoint_url': os.getenv("S3_ENDPOINT_URL", {{ .Values.filestore.s3.endpointUrl | default "" | quote }}),
       {{- end }}
-      {{- if .Values.filestore.s3.signature_version }}
-      'signature_version': {{ .Values.filestore.s3.signature_version | quote }},
+      {{- if or (.Values.filestore.s3.signature_version) (.Values.filestore.s3.signature_versionRef) }}
+      'signature_version': os.getenv("S3_SIGNATURE_VERSION", {{ .Values.filestore.s3.signature_version | default "" | quote }}),
       {{- end }}
-      {{- if .Values.filestore.s3.region_name }}
-      'region_name': {{ .Values.filestore.s3.region_name | quote }},
+      {{- if or (.Values.filestore.s3.region_name) (.Values.filestore.s3.region_nameRef) }}
+      'region_name': os.getenv("S3_REGION_NAME", {{ .Values.filestore.s3.region_name | default "" | quote }}),
       {{- end }}
-      {{- if .Values.filestore.s3.default_acl }}
-      'default_acl': {{ .Values.filestore.s3.default_acl | quote }},
+      {{- if or (.Values.filestore.s3.default_acl) (.Values.filestore.s3.default_aclRef) }}
+      'default_acl': os.getenv("S3_DEFAULT_ACL", {{ .Values.filestore.s3.default_acl | default "" | quote }}),
       {{- end }}
-      #add comfig params for s3
-      {{- if .Values.filestore.s3.addressing_style }}
-      'addressing_style': {{ .Values.filestore.s3.addressing_style | quote }},
+      #add config params for s3
+      {{- if or (.Values.filestore.s3.addressing_style) (.Values.filestore.s3.addressing_styleRef) }}
+      'addressing_style': os.getenv("S3_ADDRESSING_STYLE", {{ .Values.filestore.s3.addressing_style | default "" | quote }}),
       {{- end }}
-      {{- if .Values.filestore.s3.location }}
-      'location': {{ .Values.filestore.s3.location | quote }},
+      {{- if or (.Values.filestore.s3.location) (.Values.filestore.s3.locationRef) }}
+      'location': os.getenv("S3_LOCATION", {{ .Values.filestore.s3.location | default "" | quote }}),
       {{- end }}
   }
   {{- end }}

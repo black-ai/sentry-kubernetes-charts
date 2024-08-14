@@ -1698,12 +1698,31 @@ filestore:
   ## Currently unconfigured and changing this has no impact on the template configuration.
   ## Note that you can use a secret with default references "s3-access-key-id" and "s3-secret-access-key".
   ## Otherwise, you can use custom secret references, or use plain text values.
+  ##
+  ## Configuration can also be provided with an existing secret with default references:
+  ## - s3-bucket-name
+  ## - s3-endpoint-url
+  ## - s3-signature-version
+  ## - s3-region-name
+  ## - s3-default-acl
+  ## - s3-addressing-style
+  ## - s3-location
+  ## Otherwise, you can use custom configMap references, or use plain text values.
   s3: {}
   #  existingSecret:
   #  accessKeyIdRef:
   #  secretAccessKeyRef:
   #  accessKey:
   #  secretKey:
+  #
+  #  existingConfigMap:
+  #  accessKeyRef:
+  #  secretKeyRef:
+  #  bucketNameRef:
+  #  endpointUrlRef:
+  #  signature_versionRef:
+  #  region_nameRef:
+  #  default_aclRef:
   #  bucketName:
   #  endpointUrl:
   #  signature_version:

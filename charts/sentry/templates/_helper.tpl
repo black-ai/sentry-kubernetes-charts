@@ -569,6 +569,43 @@ Common Sentry environment variables
       name: {{ .Values.filestore.s3.existingSecret }}
       key: {{ default "s3-secret-access-key" .Values.filestore.s3.secretAccessKeyRef }}
 {{- end }}
+{{- if and (eq .Values.filestore.backend "s3") .Values.filestore.s3.existingConfigMap }}
+- name: S3_BUCKET_NAME
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.filestore.s3.existingConfigMap }}
+      key: {{ default "s3-bucket-name" .Values.filestore.s3.bucketNameRef }}
+- name: S3_ENDPOINT_URL
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.filestore.s3.existingConfigMap }}
+      key: {{ default "s3-endpoint-url" .Values.filestore.s3.endpointUrlRef }}
+- name: S3_SIGNATURE_VERSION
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.filestore.s3.existingConfigMap }}
+      key: {{ default "s3-signature-version" .Values.filestore.s3.signature_versionRef }}
+- name: S3_REGION_NAME
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.filestore.s3.existingConfigMap }}
+      key: {{ default "s3-region-name" .Values.filestore.s3.region_nameRef }}
+- name: S3_DEFAULT_ACL
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.filestore.s3.existingConfigMap }}
+      key: {{ default "s3-default-acl" .Values.filestore.s3.default_aclRef }}
+- name: S3_ADDRESSING_STYLE
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.filestore.s3.existingConfigMap }}
+      key: {{ default "s3-addressing-style" .Values.filestore.s3.addressing_styleRef }}
+- name: S3_LOCATION
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.filestore.s3.existingConfigMap }}
+      key: {{ default "s3-location" .Values.filestore.s3.locationRef }}
+{{- end }}
 {{- if and (eq .Values.filestore.backend "gcs") .Values.filestore.gcs.secretName }}
 - name: GOOGLE_APPLICATION_CREDENTIALS
   value: /var/run/secrets/google/{{ .Values.filestore.gcs.credentialsFile }}
